@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
     path("player/", include("player.urls")),
+    path("team/", include("team.urls")),
 ]
