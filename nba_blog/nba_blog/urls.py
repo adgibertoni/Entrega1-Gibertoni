@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from player.views import create_player
+from team.views import create_team
+from report.views import create_report
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
     path("player/", include("player.urls")),
+    path("report/", include("report.urls")),
     path("team/", include("team.urls")),
 ]

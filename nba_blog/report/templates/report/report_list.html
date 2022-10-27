@@ -1,0 +1,62 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block nba_blog_title %}
+Reportes
+{% endblock %}
+
+{% block nba_blog_header %}
+<header class="masthead" style="background-image: url('../../static/home/assets/img/reports-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>Reportes</h1>
+                    <span class="subheading">My blog de NBA en CoderHouse</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'report:report-add' %}">Agregar nuevo Reporte</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block nba_blog_content %}
+<!-- Muestra todas los reports a partir de acá -->
+{% for report in reports %}
+    <!-- Post preview-->
+    <div class="post-preview">
+        <h2 class="post-title">{{ report.report_title }}</h2>
+        <h5 class="post-subtitle">{{ report.date_added }}</h5>
+        <h4 class="post-subtitle">{{ report.report_data }}</h4>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+{% endfor %}
+<!--Pagination-->
+<div class="container p-4">
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+            {% if reports.has_previous %}
+                <a href="?page=1">&laquo; first</a> |
+                <a href="?page={{ reports.previous_page_number }}">previous</a> |
+            {% endif %}
+
+            {% if reports.paginator.num_pages > 1 %}
+            <span class="current">
+                Page {{ reports.number }} of {{ reports.paginator.num_pages }} |
+            </span>
+            {% endif %}
+
+            {% if reports.has_next %}
+                <a href="?page={{ reports.next_page_number }}">next</a> |
+                <a href="?page={{ reports.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+<!--end of Pagination-->
+{% endblock %}
+
+
