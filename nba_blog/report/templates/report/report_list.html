@@ -24,17 +24,23 @@ Reportes
 
 {% block nba_blog_content %}
 <!-- Muestra todas los reports a partir de acá -->
-{% for report in reports %}
+{% for report in report_list %}
     <!-- Post preview-->
     <div class="post-preview">
-        <h2 class="post-title">{{ report.report_title }}</h2>
-        <h5 class="post-subtitle">{{ report.date_added }}</h5>
-        <h4 class="post-subtitle">{{ report.report_data }}</h4>
+        <a href="{% url 'report:report-detail' report.id %}">
+            <h2 class="post-title">{{ report.report_title }}</h2>
+            <!--<h4 class="post-subtitle">{{ report.description }}</h4> sacar-->
+        </a>
+        <p class="post-meta">
+            Creado por
+            <a href="#!">Agustin Gibertoni</a> 
+            en {{ report.date_added }}
+        </p>
     </div>
     <!-- Divider-->
     <hr class="my-4" />
 {% endfor %}
-<!--Pagination-->
+<!--Pagination>
 <div class="container p-4">
     <div class="pagination justify-content-center">
         <span class="step-links">
@@ -56,7 +62,34 @@ Reportes
         </span>
     </div>
 </div>
-<!--end of Pagination-->
+end of Pagination-->
+
+<!--Pagination Class Based Views-->
+{% if is_paginated %}
+<div class="container p-4">
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a> |
+                <a href="?page={{ report_list.previous_page_number }}">previous</a> |
+            {% endif %}
+
+            {% if page_obj.paginator.num_pages > 1 %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+            </span>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a> |
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endif %}
+<!--end of Pagination Class Based View-->
+
 {% endblock %}
 
 

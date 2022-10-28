@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('report_title', models.CharField(max_length=50)),
-                ('report_data', models.CharField(max_length=700)),
+                ('description', models.CharField(max_length=700)),
                 ('date_added', models.DateField()),
             ],
         ),

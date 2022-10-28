@@ -1,7 +1,10 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 
+from report.models import Report
 
-class ReportForm(forms.Form):
+
+class ReportForm(forms.ModelForm):
     report_title = forms.CharField(
         label="Título del reporte:",
         required=False,
@@ -13,12 +16,11 @@ class ReportForm(forms.Form):
             }
         ),
     )
-    report_data = forms.CharField(
+    description = forms.CharField(
         label="Descripción:",
         required=False,
-        widget=forms.TextInput(
-            attrs={
-                
+        widget=CKEditorWidget(
+            attrs={                
                 "placeholder": "Ingrese la información correspondiente al reporte",
                 "required": "True",
             }
@@ -35,3 +37,7 @@ class ReportForm(forms.Form):
             }
         ),
     )
+
+    class Meta:
+        model = Report
+        fields = ["report_title", "description", "date_added"]

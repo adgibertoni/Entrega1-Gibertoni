@@ -18,7 +18,6 @@ from django.urls import path, include
 
 from player.views import create_player
 from team.views import create_team
-from report.views import create_report
 
 urlpatterns = [
     path("admin/", admin.site.urls),
